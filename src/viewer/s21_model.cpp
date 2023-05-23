@@ -11,7 +11,8 @@
 #include <iostream>
 #include <unordered_map>
 
-namespace std {
+using namespace std;
+
 template <>
 struct hash<s21::S21Model::Vertex> {
   size_t operator()(s21::S21Model::Vertex const& vertex) const {
@@ -21,7 +22,6 @@ struct hash<s21::S21Model::Vertex> {
     return seed;
   }
 };
-}  // namespace std
 
 namespace s21 {
 
