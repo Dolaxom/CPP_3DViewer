@@ -1,9 +1,21 @@
 CXX=msbuild
 CXXFLAGS=/p:Configuration=Debug /p:Platform=x64
 
+all: tests install dvi
+
 .PHONY: build
 build:
 	$(CXX) viewer\Viewer.vcxproj $(CXXFLAGS)
+
+.PHONY: install
+install: build
+	mkdir viewer\build
+	copy viewer\Viewer.exe viewer\build
+	copy viewer\launch_parameters.conf viewer\build
+	copy viewer\imgui.ini viewer\build
+	copy viewer\simple_shader.frag.spv viewer\build
+	copy viewer\simple_shader.vert.spv viewer\build
+	del /F viewer\Viewer.exe
 
 .PHONY: tests
 tests:
@@ -12,9 +24,18 @@ tests:
 
 .PHONY: clean
 clean:
-	del /F viewer\Viewer.pdb viewer\Viewer.exe
+	del /F viewer\Viewer.pdb
 	rd /s /q viewer\x64
+	rd /s /q viewer\build
 
-.PHONY: install
-install:
-	powershell -Command "New-Item -ItemType SymbolicLink -Path \"$${HOME}\Desktop\Viewer.lnk\" -Target \"$(CURDIR)\viewer\Viewer.exe\""
+.PHONY: uninstall
+uninstall:
+	rd /s /q viewer\build
+
+.PHONY: dvi
+dvi:
+	docsify serve .\..\materials\docs\
+
+.PHONY: dist
+dist:
+	powershell Compress-Archive $(CURDIR)\viewer\build Viewer.zip
