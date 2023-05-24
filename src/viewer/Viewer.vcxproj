@@ -43,7 +43,7 @@
     <ClInclude Include="s21_view.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="s21_application.cpp" />
+    <ClCompile Include="s21_application.cc" />
     <ClCompile Include="imgui\file_browser\ImGuiFileBrowser.cpp" />
     <ClCompile Include="imgui\imgui.cpp" />
     <ClCompile Include="imgui\imgui_demo.cpp" />
@@ -52,17 +52,17 @@
     <ClCompile Include="imgui\imgui_impl_vulkan.cpp" />
     <ClCompile Include="imgui\imgui_tables.cpp" />
     <ClCompile Include="imgui\imgui_widgets.cpp" />
-    <ClCompile Include="s21_camera.cpp" />
-    <ClCompile Include="s21_device.cpp" />
-    <ClCompile Include="s21_input_controller.cpp" />
-    <ClCompile Include="s21_model.cpp" />
-    <ClCompile Include="s21_pipeline.cpp" />
-    <ClCompile Include="s21_renderer.cpp" />
-    <ClCompile Include="s21_render_system.cpp" />
-    <ClCompile Include="s21_swap_chain.cpp" />
-    <ClCompile Include="s21_window.cpp" />
+    <ClCompile Include="s21_camera.cc" />
+    <ClCompile Include="s21_device.cc" />
+    <ClCompile Include="s21_input_controller.cc" />
+    <ClCompile Include="s21_model.cc" />
+    <ClCompile Include="s21_pipeline.cc" />
+    <ClCompile Include="s21_renderer.cc" />
+    <ClCompile Include="s21_render_system.cc" />
+    <ClCompile Include="s21_swap_chain.cc" />
+    <ClCompile Include="s21_window.cc" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="s21_view.cpp" />
+    <ClCompile Include="s21_view.cc" />
   </ItemGroup>
   <ItemGroup>
     <None Include="compile.bat" />
