@@ -19,8 +19,7 @@ struct SimplePushConstantData {
   alignas(16) glm::vec3 color{};
 };
 
-S21RenderSystem::S21RenderSystem(S21Device& device,
-                                       VkRenderPass renderPass)
+S21RenderSystem::S21RenderSystem(S21Device& device, VkRenderPass renderPass)
     : s21Device{device} {
   createPipelineLayout();
   createPipeline(renderPass);
@@ -82,9 +81,10 @@ void S21RenderSystem::createSecondPipeline(VkRenderPass renderPass) {
                                     "simple_shader.frag.spv", pipelineConfig);
 }
 
-void S21RenderSystem::renderGameObjects(
-    VkCommandBuffer commandBuffer, std::vector<S21Object>& gameObjects,
-    const S21Camera& camera, S21Object& offset, S21View& view) {
+void S21RenderSystem::renderGameObjects(VkCommandBuffer commandBuffer,
+                                        std::vector<S21Object>& gameObjects,
+                                        const S21Camera& camera,
+                                        S21Object& offset, S21View& view) {
   vkCmdSetLineWidth(commandBuffer, view.getEdgeWidth());
 
   PFN_vkCmdSetLineStippleEXT vkCmdSetLineStippleEXT =
@@ -121,9 +121,13 @@ void S21RenderSystem::renderGameObjects(
 }
 
 void S21RenderSystem::renderPoints(VkCommandBuffer commandBuffer,
-                                      std::vector<S21Object>& gameObjects,
-                                      const S21Camera& camera,
-                                      S21Object& offset, S21View& view) {
+                                   std::vector<S21Object>& gameObjects,
+                                   const S21Camera& camera, S21Object& offset,
+                                   S21View& view) {
+  if (!view.getVerticesDisplayMode()) {
+    return;
+  }
+
   s21SecondPipeline->bind(commandBuffer);
 
   for (auto& obj : gameObjects) {

@@ -28,8 +28,7 @@ class S21RenderSystem {
 
   void renderPoints(VkCommandBuffer commandBuffer,
                     std::vector<S21Object>& gameObjects,
-                    const S21Camera& camera, S21Object& offset,
-                    S21View& view);
+                    const S21Camera& camera, S21Object& offset, S21View& view);
 
  private:
   void createPipelineLayout();

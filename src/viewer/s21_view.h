@@ -25,6 +25,7 @@ class S21View {
   void moveInPlaneXZ(S21Object& gameObject);
 
   int getCurrentProjection() const { return currentProjection_; }
+  int getVerticesDisplayMode() const { return isDisplayVertices_; }
   std::string getFilePath() const { return filePath; }
   glm::vec3 getEdgesColor() { return float3ToVec3(edgesColor_); }
   glm::vec3 getVerticesColor() { return float3ToVec3(verticesColor_); }
@@ -41,6 +42,7 @@ class S21View {
   glm::vec3 scale_{1.0f};
 
   int currentProjection_ = 0;           // 0 = perspective; 1 = orthographic;
+  int isDisplayVertices_ = 0;           // 0 = None, 1 = Square
   uint16_t currentLineStyle_ = 0xFFFF;  // 0xFFFF = solid, 0x00FF = stipple;
 
   std::string filePath;

@@ -59,17 +59,17 @@ void S21View::drawInterface() {
     IMGUI_DEMO_MARKER("Object/Projection");
     if (ImGui::TreeNode("Projection")) {
       const char* items_[] = {"perspective", "orthographic"};
-      static const char* current_item_ = items_[0];
+      static const char* currentItem = items_[0];
       ImGui::PushItemWidth(125.0f);
-      if (ImGui::BeginCombo("##combo", current_item_)) {
+      if (ImGui::BeginCombo("##combo", currentItem)) {
         for (int n = 0; n < IM_ARRAYSIZE(items_); n++) {
-          bool is_selected = (current_item_ == items_[n]);
-          if (ImGui::Selectable(items_[n], is_selected)) {
-            current_item_ = items_[n];
+          bool isSelected = (currentItem == items_[n]);
+          if (ImGui::Selectable(items_[n], isSelected)) {
+            currentItem = items_[n];
 
-            currentProjection_ = current_item_ == items_[0] ? 0 : 1;
+            currentProjection_ = currentItem == items_[0] ? 0 : 1;
           }
-          if (is_selected) {
+          if (isSelected) {
             ImGui::SetItemDefaultFocus();
           }
         }
@@ -105,16 +105,16 @@ void S21View::drawInterface() {
       ImGui::NewLine();
 
       const char* items_[] = {"Solid", "Stipple"};
-      static const char* current_item_ = items_[0];
-      if (ImGui::BeginCombo("##comboStyle", current_item_)) {
+      static const char* currentItem = items_[0];
+      if (ImGui::BeginCombo("##comboStyle", currentItem)) {
         for (int n = 0; n < IM_ARRAYSIZE(items_); n++) {
-          bool is_selected = (current_item_ == items_[n]);
-          if (ImGui::Selectable(items_[n], is_selected)) {
-            current_item_ = items_[n];
+          bool isSelected = (currentItem == items_[n]);
+          if (ImGui::Selectable(items_[n], isSelected)) {
+            currentItem = items_[n];
 
-            currentLineStyle_ = current_item_ == items_[0] ? 0xFFFF : 0x00FF;
+            currentLineStyle_ = currentItem == items_[0] ? 0xFFFF : 0x00FF;
           }
-          if (is_selected) {
+          if (isSelected) {
             ImGui::SetItemDefaultFocus();
           }
         }
@@ -130,6 +130,24 @@ void S21View::drawInterface() {
       ImGui::PushItemWidth(125.0f);
 
       ImGui::ColorPicker3("VerticesColor", verticesColor_, 0);
+
+      const char* items_[] = {"None", "Square"};
+      static const char* currentItem = items_[0];
+      if (ImGui::BeginCombo("##comboStyle", currentItem)) {
+        for (int n = 0; n < IM_ARRAYSIZE(items_); n++) {
+          bool isSelected = (currentItem == items_[n]);
+          if (ImGui::Selectable(items_[n], isSelected)) {
+            currentItem = items_[n];
+
+            isDisplayVertices_ = currentItem == items_[0] ? 0 : 1;
+          }
+          if (isSelected) {
+            ImGui::SetItemDefaultFocus();
+          }
+        }
+
+        ImGui::EndCombo();
+      }
 
       ImGui::PopItemWidth();
       ImGui::TreePop();
