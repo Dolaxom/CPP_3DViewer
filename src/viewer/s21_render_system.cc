@@ -114,7 +114,8 @@ void S21RenderSystem::renderGameObjects(VkCommandBuffer commandBuffer,
     ImGui_ImplVulkan_NewFrame();
     ImGui_ImplGlfw_NewFrame();
     ImGui::NewFrame();
-    view.drawInterface();
+    view.userInterface();
+    view.statisticsInterface();
     ImGui::Render();
     ImGui_ImplVulkan_RenderDrawData(ImGui::GetDrawData(), commandBuffer, 0);
   }

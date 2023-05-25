@@ -1,5 +1,5 @@
 #include "s21_view.h"
-
+#include "iostream"
 #include "s21_object.h"
 
 namespace s21 {
@@ -17,9 +17,13 @@ void* GImGuiDemoMarkerCallbackUserData = NULL;
                                GImGuiDemoMarkerCallbackUserData); \
   } while (0)
 
-S21View::S21View() { setLaunchPathToObject(filePath, ""); }
+S21View::S21View() {
+  setLaunchPathToObject(filePath_, "");
+  fileName_ = getFileName(filePath_);
+  std::cout << "fileName_:" << fileName_ + '\n';
+}
 
-void S21View::drawInterface() {
+void S21View::userInterface() {
   showMainMenu();
 
   ImGui::Begin("Viewer options");
@@ -157,6 +161,31 @@ void S21View::drawInterface() {
   ImGui::End();
 }
 
+void S21View::statisticsInterface()
+{
+  ImGui::Begin("Statistics");
+
+  IMGUI_DEMO_MARKER("Object");
+  if (ImGui::CollapsingHeader("Object")) {
+    ImGui::PushItemWidth(75.0f);
+    ImGui::Text("filename:");
+    ImGui::SameLine();
+    ImGui::Text(fileName_.c_str());
+    ImGui::NewLine();
+    ImGui::Text("Vertices count:");
+    ImGui::SameLine();
+    ImGui::Text(std::to_string(verticesCount_).c_str());
+    ImGui::NewLine();
+    ImGui::Text("Faces count:");
+    ImGui::SameLine();
+    ImGui::Text(std::to_string(facesCount_).c_str());
+    ImGui::NewLine();
+    ImGui::PopItemWidth();
+  }
+
+  ImGui::End();
+}
+
 void S21View::moveInPlaneXZ(S21Object& gameObject) {
   glm::vec3 scale{1.0f};
   scale += scale_;
@@ -181,6 +210,15 @@ void S21View::moveInPlaneXZ(S21Object& gameObject) {
   gameObject.transform.translation = moveDirection_;
 }
 
+void S21View::setVerticesCount(uint32_t count) {
+  verticesCount_ = count;
+}
+
+void S21View::setFacesCount(uint32_t count)
+{
+  facesCount_ = count;
+}
+
 void S21View::showMainMenu() {
   bool open = false;
   if (ImGui::BeginMainMenuBar()) {
@@ -197,8 +235,9 @@ void S21View::showMainMenu() {
   if (file_dialog.showFileDialog(
           "Load new .obj", imgui_addons::ImGuiFileBrowser::DialogMode::OPEN,
           ImVec2(700, 310), ".obj")) {
-    filePath = file_dialog.selected_path;
-    setLaunchPathToObject(filePath, filePath);
+    filePath_ = file_dialog.selected_path;
+    setLaunchPathToObject(filePath_, filePath_);
+    fileName_ = getFileName(filePath_);
   }
 }
 
@@ -210,4 +249,15 @@ glm::vec3 S21View::float3ToVec3(float* input) {
 
   return result;
 }
+
+std::string S21View::getFileName(const std::string& filePath) {
+  size_t lastSlash = filePath.find_last_of("\\/");
+    
+  if (lastSlash != std::string::npos) {
+    return filePath.substr(lastSlash + 1);
+  }
+    
+  return filePath;
+}
+  
 }  // namespace s21

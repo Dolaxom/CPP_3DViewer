@@ -35,10 +35,11 @@ class S21Model {
   struct Builder {
     std::vector<Vertex> vertices{};
     std::vector<uint32_t> indices{};
+    uint32_t facesCount{};
 
     void loadModel(const std::string& filepath);
   };
-
+    
   S21Model(S21Device& device, const S21Model::Builder& builder);
   ~S21Model();
 
@@ -46,7 +47,7 @@ class S21Model {
   S21Model& operator=(const S21Model&) = delete;
 
   static std::unique_ptr<S21Model> createModelFromFile(
-      S21Device& device, const std::string& filepath);
+      S21Device& device, const std::string& filepath, std::pair<uint32_t, uint32_t>& modelAttributes);
 
   void bind(VkCommandBuffer commandBuffer);
   void draw(VkCommandBuffer commandBuffer);

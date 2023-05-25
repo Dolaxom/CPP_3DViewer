@@ -20,17 +20,20 @@ class S21View {
  public:
   S21View();
 
-  void drawInterface();
+  void userInterface();
+  void statisticsInterface();
 
   void moveInPlaneXZ(S21Object& gameObject);
-
+  void setVerticesCount(uint32_t count);
+  void setFacesCount(uint32_t count);
   int getCurrentProjection() const { return currentProjection_; }
   int getVerticesDisplayMode() const { return isDisplayVertices_; }
-  std::string getFilePath() const { return filePath; }
+  std::string getFilePath() const { return filePath_; }
   glm::vec3 getEdgesColor() { return float3ToVec3(edgesColor_); }
   glm::vec3 getVerticesColor() { return float3ToVec3(verticesColor_); }
   float* getBackgroundColor() { return backgroundColor_; }
   float getEdgeWidth() const { return edgeWidth_; }
+  
   uint16_t getStipPatternt() const { return currentLineStyle_; }
 
  private:
@@ -45,7 +48,11 @@ class S21View {
   int isDisplayVertices_ = 0;           // 0 = None, 1 = Square
   uint16_t currentLineStyle_ = 0xFFFF;  // 0xFFFF = solid, 0x00FF = stipple;
 
-  std::string filePath;
+  std::string filePath_{};
+ 
+  uint32_t verticesCount_{};
+  uint32_t facesCount_{};
+  std::string fileName_{};
 
   float backgroundColor_[3]{};
   float edgesColor_[3]{1.0f, 1.0f, 1.0f};
@@ -54,6 +61,7 @@ class S21View {
   float edgeWidth_ = 1.0f;
 
   glm::vec3 float3ToVec3(float* input);
+  std::string getFileName(const std::string& filePath);
 };
 
 }  // namespace s21

@@ -85,14 +85,17 @@ void S21Application::run() {
 }
 
 void S21Application::loadGameObjects() {
+  std::pair<uint32_t, uint32_t> modelAttributes;
   std::shared_ptr<S21Model> s21Model =
-      S21Model::createModelFromFile(s21Device, currentViewerModel);
+      S21Model::createModelFromFile(s21Device, currentViewerModel, modelAttributes);
   auto obj = S21Object::createGameObject();
   obj.model = s21Model;
   obj.transform.translation = {0.0f, 0.0f, 2.5f};
   obj.transform.scale = {1.0f, -1.0f, 1.0f};
   obj.transform.rotation = {0.0f, glm::radians(180.0f), 0.0f};
   s21Objects.push_back(std::move(obj));
+  s21View.setVerticesCount(modelAttributes.first);
+  s21View.setFacesCount(modelAttributes.second);
 }
 
 void S21Application::initImgui() {

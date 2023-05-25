@@ -8,7 +8,6 @@
 // std
 #include <cassert>
 #include <cstring>
-#include <iostream>
 #include <unordered_map>
 
 using namespace std;
@@ -145,10 +144,11 @@ S21Model::Vertex::getAttributeDescriptions() {
 }
 
 std::unique_ptr<S21Model> S21Model::createModelFromFile(
-    S21Device& device, const std::string& filepath) {
+  S21Device& device, const std::string& filepath, std::pair<uint32_t, uint32_t>& modelAttributes) {
   Builder builder{};
   builder.loadModel(filepath);
-  std::cout << "Vertex count: " << builder.vertices.size() << "\n";
+  modelAttributes.first = builder.vertices.size();
+  modelAttributes.second = builder.facesCount;
 
   return std::make_unique<S21Model>(device, builder);
 }
@@ -187,7 +187,7 @@ void S21Model::Builder::loadModel(const std::string& filepath) {
               attrib.colors[colorIndex - 0],
           };
         } else {
-          vertex.color = {1.f, 1.f, 1.f};  // set default color
+          vertex.color = {1.0f, 1.0f, 1.0f};
         }
       }
 
@@ -213,6 +213,8 @@ void S21Model::Builder::loadModel(const std::string& filepath) {
       indices.push_back(uniqueVertices[vertex]);
     }
   }
+
+  facesCount = indices.size() / 3;
 }
 
 }  // namespace s21
