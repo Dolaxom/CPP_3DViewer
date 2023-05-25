@@ -9,6 +9,9 @@
 #include <iostream>
 #include <stdexcept>
 
+#include "imgui/imgui_impl_glfw.h"
+#include "imgui/imgui_impl_vulkan.h"
+
 namespace s21 {
 
 struct SimplePushConstantData {
