@@ -1,14 +1,12 @@
 #pragma once
 
-#include "s21_device.h"
-
-// vulkan headers
 #include <vulkan/vulkan.h>
 
-// std lib headers
 #include <memory>
 #include <string>
 #include <vector>
+
+#include "s21_device.h"
 
 namespace s21 {
 

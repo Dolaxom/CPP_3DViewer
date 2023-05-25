@@ -1,14 +1,13 @@
 #pragma once
 
+#include <memory>
+#include <vector>
+
 #include "s21_camera.h"
 #include "s21_device.h"
 #include "s21_input_controller.h"
 #include "s21_object.h"
 #include "s21_pipeline.h"
-
-// std
-#include <memory>
-#include <vector>
 
 namespace s21 {
 class S21View;
@@ -21,14 +20,14 @@ class S21RenderSystem {
   S21RenderSystem(const S21RenderSystem&) = delete;
   S21RenderSystem& operator=(const S21RenderSystem&) = delete;
 
-  void renderGameObjects(VkCommandBuffer commandBuffer,
-                         std::vector<S21Object>& gameObjects,
-                         const S21Camera& camera, S21Object& offset,
-                         S21View& view);
-
-  void renderPoints(VkCommandBuffer commandBuffer,
+  void renderObject(VkCommandBuffer commandBuffer,
                     std::vector<S21Object>& gameObjects,
                     const S21Camera& camera, S21Object& offset, S21View& view);
+
+  void renderObjectPoints(VkCommandBuffer commandBuffer,
+                          std::vector<S21Object>& gameObjects,
+                          const S21Camera& camera, S21Object& offset,
+                          S21View& view);
 
  private:
   void createPipelineLayout();

@@ -1,13 +1,10 @@
 #pragma once
 
+#include <glm/gtc/matrix_transform.hpp>
+#include <memory>
+
 #include "s21_model.h"
 #include "s21_view.h"
-
-// libs
-#include <glm/gtc/matrix_transform.hpp>
-
-// std
-#include <memory>
 
 namespace s21 {
 
@@ -49,7 +46,7 @@ class S21Object {
  public:
   using id_t = unsigned int;
 
-  static S21Object createGameObject() {
+  static S21Object createObject() {
     static id_t currentId = 0;
     return S21Object{currentId++};
   }

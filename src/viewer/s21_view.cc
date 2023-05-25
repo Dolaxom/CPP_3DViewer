@@ -1,5 +1,7 @@
 #include "s21_view.h"
-#include "iostream"
+
+#include <iostream>
+
 #include "s21_object.h"
 
 namespace s21 {
@@ -161,8 +163,7 @@ void S21View::userInterface() {
   ImGui::End();
 }
 
-void S21View::statisticsInterface()
-{
+void S21View::statisticsInterface() {
   ImGui::Begin("Statistics");
 
   IMGUI_DEMO_MARKER("Object");
@@ -210,14 +211,9 @@ void S21View::moveInPlaneXZ(S21Object& gameObject) {
   gameObject.transform.translation = moveDirection_;
 }
 
-void S21View::setVerticesCount(uint32_t count) {
-  verticesCount_ = count;
-}
+void S21View::setVerticesCount(uint32_t count) { verticesCount_ = count; }
 
-void S21View::setFacesCount(uint32_t count)
-{
-  facesCount_ = count;
-}
+void S21View::setFacesCount(uint32_t count) { facesCount_ = count; }
 
 void S21View::showMainMenu() {
   bool open = false;
@@ -252,12 +248,12 @@ glm::vec3 S21View::float3ToVec3(float* input) {
 
 std::string S21View::getFileName(const std::string& filePath) {
   size_t lastSlash = filePath.find_last_of("\\/");
-    
+
   if (lastSlash != std::string::npos) {
     return filePath.substr(lastSlash + 1);
   }
-    
+
   return filePath;
 }
-  
+
 }  // namespace s21

@@ -33,7 +33,7 @@ class S21View {
   glm::vec3 getVerticesColor() { return float3ToVec3(verticesColor_); }
   float* getBackgroundColor() { return backgroundColor_; }
   float getEdgeWidth() const { return edgeWidth_; }
-  
+
   uint16_t getStipPatternt() const { return currentLineStyle_; }
 
  private:
@@ -49,7 +49,7 @@ class S21View {
   uint16_t currentLineStyle_ = 0xFFFF;  // 0xFFFF = solid, 0x00FF = stipple;
 
   std::string filePath_{};
- 
+
   uint32_t verticesCount_{};
   uint32_t facesCount_{};
   std::string fileName_{};

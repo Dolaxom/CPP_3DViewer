@@ -1,14 +1,11 @@
 #include "s21_render_system.h"
 
-// libs
 #define GLM_FORCE_RADIANS
 #define GLM_FORCE_DEPTH_ZERO_TO_ONE
-#include <glm/glm.hpp>
-#include <glm/gtc/constants.hpp>
-
-// std
 #include <array>
 #include <cassert>
+#include <glm/glm.hpp>
+#include <glm/gtc/constants.hpp>
 #include <iostream>
 #include <stdexcept>
 
@@ -81,10 +78,10 @@ void S21RenderSystem::createSecondPipeline(VkRenderPass renderPass) {
                                     "simple_shader.frag.spv", pipelineConfig);
 }
 
-void S21RenderSystem::renderGameObjects(VkCommandBuffer commandBuffer,
-                                        std::vector<S21Object>& gameObjects,
-                                        const S21Camera& camera,
-                                        S21Object& offset, S21View& view) {
+void S21RenderSystem::renderObject(VkCommandBuffer commandBuffer,
+                                   std::vector<S21Object>& gameObjects,
+                                   const S21Camera& camera, S21Object& offset,
+                                   S21View& view) {
   vkCmdSetLineWidth(commandBuffer, view.getEdgeWidth());
 
   PFN_vkCmdSetLineStippleEXT vkCmdSetLineStippleEXT =
@@ -121,10 +118,10 @@ void S21RenderSystem::renderGameObjects(VkCommandBuffer commandBuffer,
   }
 }
 
-void S21RenderSystem::renderPoints(VkCommandBuffer commandBuffer,
-                                   std::vector<S21Object>& gameObjects,
-                                   const S21Camera& camera, S21Object& offset,
-                                   S21View& view) {
+void S21RenderSystem::renderObjectPoints(VkCommandBuffer commandBuffer,
+                                         std::vector<S21Object>& gameObjects,
+                                         const S21Camera& camera,
+                                         S21Object& offset, S21View& view) {
   if (!view.getVerticesDisplayMode()) {
     return;
   }

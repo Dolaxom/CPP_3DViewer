@@ -1,13 +1,11 @@
 #pragma once
 
+#include <vector>
+
 #include "s21_device.h"
 #include "s21_object.h"
 #include "s21_renderer.h"
 #include "s21_window.h"
-
-// std
-#include <memory>
-#include <vector>
 
 namespace s21 {
 class S21Application {
@@ -24,7 +22,7 @@ class S21Application {
   void run();
 
  private:
-  void loadGameObjects();
+  void loadObject();
   void initImgui();
 
   S21Window s21Window{WIDTH, HEIGHT, "3DViewer"};

@@ -1,6 +1,5 @@
 #include "s21_window.h"
 
-// std
 #include <stdexcept>
 
 namespace s21 {

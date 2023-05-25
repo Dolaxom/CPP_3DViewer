@@ -1,15 +1,14 @@
 #include "s21_pipeline.h"
 
-#include "imgui/imgui.h"
-#include "imgui/imgui_impl_glfw.h"
-#include "imgui/imgui_impl_vulkan.h"
-#include "s21_model.h"
-
-// std
 #include <cassert>
 #include <fstream>
 #include <iostream>
 #include <stdexcept>
+
+#include "imgui/imgui.h"
+#include "imgui/imgui_impl_glfw.h"
+#include "imgui/imgui_impl_vulkan.h"
+#include "s21_model.h"
 
 namespace s21 {
 

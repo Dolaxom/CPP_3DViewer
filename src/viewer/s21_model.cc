@@ -3,11 +3,9 @@
 #define TINYOBJLOADER_IMPLEMENTATION
 #include "tiny_obj_loader.h"
 #define GLM_ENABLE_EXPERIMENTAL
-#include <glm/gtx/hash.hpp>
-
-// std
 #include <cassert>
 #include <cstring>
+#include <glm/gtx/hash.hpp>
 #include <unordered_map>
 
 using namespace std;
@@ -144,7 +142,8 @@ S21Model::Vertex::getAttributeDescriptions() {
 }
 
 std::unique_ptr<S21Model> S21Model::createModelFromFile(
-  S21Device& device, const std::string& filepath, std::pair<uint32_t, uint32_t>& modelAttributes) {
+    S21Device& device, const std::string& filepath,
+    std::pair<uint32_t, uint32_t>& modelAttributes) {
   Builder builder{};
   builder.loadModel(filepath);
   modelAttributes.first = builder.vertices.size();

@@ -1,10 +1,8 @@
 #pragma once
 
-#include "s21_window.h"
-
-// std lib headers
-#include <string>
 #include <vector>
+
+#include "s21_window.h"
 
 namespace s21 {
 

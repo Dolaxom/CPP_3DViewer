@@ -1,13 +1,12 @@
 #pragma once
 
-#include "s21_device.h"
-#include "s21_swap_chain.h"
-#include "s21_window.h"
-
-// std
 #include <cassert>
 #include <memory>
 #include <vector>
+
+#include "s21_device.h"
+#include "s21_swap_chain.h"
+#include "s21_window.h"
 
 namespace s21 {
 class S21Renderer {

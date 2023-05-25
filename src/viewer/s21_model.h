@@ -3,12 +3,9 @@
 #include "s21_device.h"
 #include "s21_utils.h"
 
-// libs
 #define GLM_FORCE_RADIANS
 #define GLM_FORCE_DEPTH_ZERO_TO_ONE
 #include <glm/glm.hpp>
-
-// std
 #include <memory>
 #include <vector>
 
@@ -39,7 +36,7 @@ class S21Model {
 
     void loadModel(const std::string& filepath);
   };
-    
+
   S21Model(S21Device& device, const S21Model::Builder& builder);
   ~S21Model();
 
@@ -47,7 +44,8 @@ class S21Model {
   S21Model& operator=(const S21Model&) = delete;
 
   static std::unique_ptr<S21Model> createModelFromFile(
-      S21Device& device, const std::string& filepath, std::pair<uint32_t, uint32_t>& modelAttributes);
+      S21Device& device, const std::string& filepath,
+      std::pair<uint32_t, uint32_t>& modelAttributes);
 
   void bind(VkCommandBuffer commandBuffer);
   void draw(VkCommandBuffer commandBuffer);

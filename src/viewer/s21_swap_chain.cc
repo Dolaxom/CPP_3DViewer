@@ -1,6 +1,5 @@
 #include "s21_swap_chain.h"
 
-// std
 #include <array>
 #include <cstdlib>
 #include <cstring>

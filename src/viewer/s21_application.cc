@@ -4,27 +4,25 @@
 #include "s21_input_controller.h"
 #include "s21_render_system.h"
 
-// libs
 #define GLM_FORCE_RADIANS
 #define GLM_FORCE_DEPTH_ZERO_TO_ONE
+#include <cassert>
+#include <chrono>
 #include <glm/glm.hpp>
 #include <glm/gtc/constants.hpp>
+#include <memory>
+#include <stdexcept>
 
 #include "imgui/imgui.h"
 #include "imgui/imgui_impl_glfw.h"
 #include "imgui/imgui_impl_vulkan.h"
-
-// std
-#include <cassert>
-#include <chrono>
-#include <stdexcept>
 
 namespace s21 {
 
 S21Application::S21Application() {
   currentViewerModel = s21View.getFilePath();
   initImgui();
-  loadGameObjects();
+  loadObject();
 }
 
 S21Application::~S21Application() {}
@@ -34,7 +32,7 @@ void S21Application::run() {
                                      s21Renderer.getSwapChainRenderPass()};
   S21Camera camera{};
 
-  auto viewerObject = S21Object::createGameObject();
+  auto viewerObject = S21Object::createObject();
   S21InputController offsetController{};
 
   auto currentTime = std::chrono::high_resolution_clock::now();
@@ -45,7 +43,7 @@ void S21Application::run() {
     if (currentViewerModel != s21View.getFilePath()) {
       currentViewerModel = s21View.getFilePath();
       s21Objects.clear();
-      loadGameObjects();
+      loadObject();
     }
 
     auto newTime = std::chrono::high_resolution_clock::now();
@@ -71,10 +69,10 @@ void S21Application::run() {
       s21Renderer.beginSwapChainRenderPass(commandBuffer,
                                            s21View.getBackgroundColor());
 
-      simpleRenderSystem.renderPoints(commandBuffer, s21Objects, camera,
+      simpleRenderSystem.renderObjectPoints(commandBuffer, s21Objects, camera,
+                                            viewerObject, s21View);
+      simpleRenderSystem.renderObject(commandBuffer, s21Objects, camera,
                                       viewerObject, s21View);
-      simpleRenderSystem.renderGameObjects(commandBuffer, s21Objects, camera,
-                                           viewerObject, s21View);
 
       s21Renderer.endSwapChainRenderPass(commandBuffer);
       s21Renderer.endFrame();
@@ -84,11 +82,11 @@ void S21Application::run() {
   vkDeviceWaitIdle(s21Device.device());
 }
 
-void S21Application::loadGameObjects() {
+void S21Application::loadObject() {
   std::pair<uint32_t, uint32_t> modelAttributes;
-  std::shared_ptr<S21Model> s21Model =
-      S21Model::createModelFromFile(s21Device, currentViewerModel, modelAttributes);
-  auto obj = S21Object::createGameObject();
+  std::shared_ptr<S21Model> s21Model = S21Model::createModelFromFile(
+      s21Device, currentViewerModel, modelAttributes);
+  auto obj = S21Object::createObject();
   obj.model = s21Model;
   obj.transform.translation = {0.0f, 0.0f, 2.5f};
   obj.transform.scale = {1.0f, -1.0f, 1.0f};

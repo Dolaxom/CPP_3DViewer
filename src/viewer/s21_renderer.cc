@@ -1,6 +1,5 @@
 #include "s21_renderer.h"
 
-// std
 #include <array>
 #include <cassert>
 #include <stdexcept>
