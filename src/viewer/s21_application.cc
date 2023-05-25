@@ -20,7 +20,7 @@
 namespace s21 {
 
 S21Application::S21Application() {
-  currentViewerModel = s21View.getFilePath();
+  currentPathToViewerModel = s21View.getFilePath();
   initImgui();
   loadObject();
 }
@@ -29,7 +29,7 @@ S21Application::~S21Application() {}
 
 void S21Application::run() {
   S21RenderSystem simpleRenderSystem{s21Device,
-                                     s21Renderer.getSwapChainRenderPass()};
+                                     s21RendererComponent.getSwapChainRenderPass()};
   S21Camera camera{};
 
   auto viewerObject = S21Object::createObject();
@@ -40,8 +40,8 @@ void S21Application::run() {
   while (!s21Window.shouldClose()) {
     glfwPollEvents();
 
-    if (currentViewerModel != s21View.getFilePath()) {
-      currentViewerModel = s21View.getFilePath();
+    if (currentPathToViewerModel != s21View.getFilePath()) {
+      currentPathToViewerModel = s21View.getFilePath();
       s21Objects.clear();
       loadObject();
     }
@@ -56,7 +56,7 @@ void S21Application::run() {
     offsetController.moveInPlaneXZ(s21Window.getWindow(), frameTime,
                                    viewerObject);
 
-    float aspect = s21Renderer.getAspectRatio();
+    float aspect = s21RendererComponent.getAspectRatio();
 
     if (!s21View.getCurrentProjection()) {
       camera.setPerspectiveProjection(glm::radians(60.0f), aspect, 0.1f,
@@ -65,8 +65,8 @@ void S21Application::run() {
       camera.setOrthographicProjection(-aspect, aspect, -1, 1, -1, 500.0f);
     }
 
-    if (auto commandBuffer = s21Renderer.beginFrame()) {
-      s21Renderer.beginSwapChainRenderPass(commandBuffer,
+    if (auto commandBuffer = s21RendererComponent.beginFrame()) {
+      s21RendererComponent.beginSwapChainRenderPass(commandBuffer,
                                            s21View.getBackgroundColor());
 
       simpleRenderSystem.renderObjectPoints(commandBuffer, s21Objects, camera,
@@ -74,8 +74,8 @@ void S21Application::run() {
       simpleRenderSystem.renderObject(commandBuffer, s21Objects, camera,
                                       viewerObject, s21View);
 
-      s21Renderer.endSwapChainRenderPass(commandBuffer);
-      s21Renderer.endFrame();
+      s21RendererComponent.endSwapChainRenderPass(commandBuffer);
+      s21RendererComponent.endFrame();
     }
   }
 
@@ -85,7 +85,7 @@ void S21Application::run() {
 void S21Application::loadObject() {
   std::pair<uint32_t, uint32_t> modelAttributes;
   std::shared_ptr<S21Model> s21Model = S21Model::createModelFromFile(
-      s21Device, currentViewerModel, modelAttributes);
+      s21Device, currentPathToViewerModel, modelAttributes);
   auto obj = S21Object::createObject();
   obj.model = s21Model;
   obj.transform.translation = {0.0f, 0.0f, 2.5f};
@@ -135,7 +135,7 @@ void S21Application::initImgui() {
   info.MinImageCount = 2;
   info.ImageCount = S21SwapChain::MAX_FRAMES_IN_FLIGHT;
 
-  ImGui_ImplVulkan_Init(&info, s21Renderer.getSwapChainRenderPass());
+  ImGui_ImplVulkan_Init(&info, s21RendererComponent.getSwapChainRenderPass());
 }
 
 }  // namespace s21

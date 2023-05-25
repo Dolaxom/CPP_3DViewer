@@ -1,4 +1,4 @@
-#include "s21_renderer.h"
+#include "s21_renderer_component.h"
 
 #include <array>
 #include <cassert>
@@ -6,15 +6,15 @@
 
 namespace s21 {
 
-S21Renderer::S21Renderer(S21Window& window, S21Device& device)
+S21RendererComponent::S21RendererComponent(S21Window& window, S21Device& device)
     : s21Window{window}, s21Device{device} {
   recreateSwapChain();
   createCommandBuffers();
 }
 
-S21Renderer::~S21Renderer() { freeCommandBuffers(); }
+S21RendererComponent::~S21RendererComponent() { freeCommandBuffers(); }
 
-void S21Renderer::recreateSwapChain() {
+void S21RendererComponent::recreateSwapChain() {
   auto extent = s21Window.getExtent();
   while (extent.width == 0 || extent.height == 0) {
     extent = s21Window.getExtent();
@@ -36,7 +36,7 @@ void S21Renderer::recreateSwapChain() {
   }
 }
 
-void S21Renderer::createCommandBuffers() {
+void S21RendererComponent::createCommandBuffers() {
   commandBuffers.resize(S21SwapChain::MAX_FRAMES_IN_FLIGHT);
 
   VkCommandBufferAllocateInfo allocInfo{};
@@ -51,14 +51,14 @@ void S21Renderer::createCommandBuffers() {
   }
 }
 
-void S21Renderer::freeCommandBuffers() {
+void S21RendererComponent::freeCommandBuffers() {
   vkFreeCommandBuffers(s21Device.device(), s21Device.getCommandPool(),
                        static_cast<uint32_t>(commandBuffers.size()),
                        commandBuffers.data());
   commandBuffers.clear();
 }
 
-VkCommandBuffer S21Renderer::beginFrame() {
+VkCommandBuffer S21RendererComponent::beginFrame() {
   assert(!isFrameStarted && "Can't call beginFrame while already in progress");
 
   auto result = s21SwapChain->acquireNextImage(&currentImageIndex);
@@ -83,7 +83,7 @@ VkCommandBuffer S21Renderer::beginFrame() {
   return commandBuffer;
 }
 
-void S21Renderer::endFrame() {
+void S21RendererComponent::endFrame() {
   assert(isFrameStarted &&
          "Can't call endFrame while frame is not in progress");
   auto commandBuffer = getCurrentCommandBuffer();
@@ -107,7 +107,7 @@ void S21Renderer::endFrame() {
       (currentFrameIndex + 1) % S21SwapChain::MAX_FRAMES_IN_FLIGHT;
 }
 
-void S21Renderer::beginSwapChainRenderPass(VkCommandBuffer commandBuffer,
+void S21RendererComponent::beginSwapChainRenderPass(VkCommandBuffer commandBuffer,
                                            float* clearData) {
   assert(isFrameStarted &&
          "Can't call beginSwapChainRenderPass if frame is not in progress");
@@ -144,7 +144,7 @@ void S21Renderer::beginSwapChainRenderPass(VkCommandBuffer commandBuffer,
   vkCmdSetScissor(commandBuffer, 0, 1, &scissor);
 }
 
-void S21Renderer::endSwapChainRenderPass(VkCommandBuffer commandBuffer) {
+void S21RendererComponent::endSwapChainRenderPass(VkCommandBuffer commandBuffer) {
   assert(isFrameStarted &&
          "Can't call endSwapChainRenderPass if frame is not in progress");
   assert(commandBuffer == getCurrentCommandBuffer() &&

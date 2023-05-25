@@ -9,13 +9,13 @@
 #include "s21_window.h"
 
 namespace s21 {
-class S21Renderer {
+class S21RendererComponent {
  public:
-  S21Renderer(S21Window& window, S21Device& device);
-  ~S21Renderer();
+  S21RendererComponent(S21Window& window, S21Device& device);
+  ~S21RendererComponent();
 
-  S21Renderer(const S21Renderer&) = delete;
-  S21Renderer& operator=(const S21Renderer&) = delete;
+  S21RendererComponent(const S21RendererComponent&) = delete;
+  S21RendererComponent& operator=(const S21RendererComponent&) = delete;
 
   VkRenderPass getSwapChainRenderPass() const {
     return s21SwapChain->getRenderPass();
