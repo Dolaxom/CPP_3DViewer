@@ -27,6 +27,7 @@ clean:
 	del /F viewer\Viewer.pdb
 	rd /s /q viewer\x64
 	rd /s /q viewer\build
+	rd /s /q tests\x64
 
 .PHONY: uninstall
 uninstall:
