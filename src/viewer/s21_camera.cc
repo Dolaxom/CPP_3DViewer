@@ -1,6 +1,5 @@
 #include "s21_camera.h"
 
-// std
 #include <cassert>
 #include <limits>
 

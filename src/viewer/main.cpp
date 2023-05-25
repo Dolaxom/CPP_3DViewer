@@ -1,9 +1,8 @@
-#include "s21_application.h"
-
-// std
 #include <cstdlib>
 #include <iostream>
 #include <stdexcept>
+
+#include "s21_application.h"
 
 int main() {
   IMGUI_CHECKVERSION();

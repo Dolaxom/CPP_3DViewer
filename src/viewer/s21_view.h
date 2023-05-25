@@ -1,11 +1,8 @@
 #pragma once
 
 #include "imgui/file_browser/ImGuiFileBrowser.h"
-#include "imgui/imgui.h"
-#include "imgui/imgui_impl_glfw.h"
-#include "imgui/imgui_impl_vulkan.h"
 #include "s21_object.h"
-#include "s21_utils.h"
+#include "s21_utils_controller.h"
 #include "s21_window.h"
 
 #define GLM_FORCE_RADIANS
@@ -29,8 +26,12 @@ class S21View {
   int getCurrentProjection() const { return currentProjection_; }
   int getVerticesDisplayMode() const { return isDisplayVertices_; }
   std::string getFilePath() const { return filePath_; }
-  glm::vec3 getEdgesColor() { return float3ToVec3(edgesColor_); }
-  glm::vec3 getVerticesColor() { return float3ToVec3(verticesColor_); }
+  glm::vec3 getEdgesColor() {
+    return S21UtilsController::float3ToVec3(edgesColor_);
+  }
+  glm::vec3 getVerticesColor() {
+    return S21UtilsController::float3ToVec3(verticesColor_);
+  }
   float* getBackgroundColor() { return backgroundColor_; }
   float getEdgeWidth() const { return edgeWidth_; }
 
@@ -59,9 +60,6 @@ class S21View {
   float verticesColor_[3]{1.0f, 1.0f, 1.0f};
 
   float edgeWidth_ = 1.0f;
-
-  glm::vec3 float3ToVec3(float* input);
-  std::string getFileName(const std::string& filePath);
 };
 
 }  // namespace s21

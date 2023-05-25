@@ -39,6 +39,7 @@
     <ClInclude Include="s21_root.h" />
     <ClInclude Include="s21_swap_chain.h" />
     <ClInclude Include="s21_utils.h" />
+    <ClInclude Include="s21_utils_controller.h" />
     <ClInclude Include="s21_window.h" />
     <ClInclude Include="tiny_obj_loader.h" />
     <ClInclude Include="s21_view.h" />
@@ -62,6 +63,7 @@
     <ClCompile Include="s21_render_system.cc" />
     <ClCompile Include="s21_root.cpp" />
     <ClCompile Include="s21_swap_chain.cc" />
+    <ClCompile Include="s21_utils_controller.cpp" />
     <ClCompile Include="s21_window.cc" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="s21_view.cc" />

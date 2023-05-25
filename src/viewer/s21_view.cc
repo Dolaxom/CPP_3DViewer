@@ -1,7 +1,6 @@
 #include "s21_view.h"
 
-#include <iostream>
-
+#include "imgui/imgui.h"
 #include "s21_object.h"
 
 namespace s21 {
@@ -20,9 +19,8 @@ void* GImGuiDemoMarkerCallbackUserData = NULL;
   } while (0)
 
 S21View::S21View() {
-  setLaunchPathToObject(filePath_, "");
-  fileName_ = getFileName(filePath_);
-  std::cout << "fileName_:" << fileName_ + '\n';
+  S21Utils::setLaunchPathToObject(filePath_, "");
+  fileName_ = S21UtilsController::getFileName(filePath_);
 }
 
 void S21View::userInterface() {
@@ -232,28 +230,9 @@ void S21View::showMainMenu() {
           "Load new .obj", imgui_addons::ImGuiFileBrowser::DialogMode::OPEN,
           ImVec2(700, 310), ".obj")) {
     filePath_ = file_dialog.selected_path;
-    setLaunchPathToObject(filePath_, filePath_);
-    fileName_ = getFileName(filePath_);
+    S21Utils::setLaunchPathToObject(filePath_, filePath_);
+    fileName_ = S21UtilsController::getFileName(filePath_);
   }
-}
-
-glm::vec3 S21View::float3ToVec3(float* input) {
-  glm::vec3 result;
-  result.x = input[0];
-  result.y = input[1];
-  result.z = input[2];
-
-  return result;
-}
-
-std::string S21View::getFileName(const std::string& filePath) {
-  size_t lastSlash = filePath.find_last_of("\\/");
-
-  if (lastSlash != std::string::npos) {
-    return filePath.substr(lastSlash + 1);
-  }
-
-  return filePath;
 }
 
 }  // namespace s21

@@ -14,8 +14,8 @@ template <>
 struct hash<s21::S21Model::Vertex> {
   size_t operator()(s21::S21Model::Vertex const& vertex) const {
     size_t seed = 0;
-    s21::hashCombine(seed, vertex.position, vertex.color, vertex.normal,
-                     vertex.uv);
+    s21::S21Utils::hashCombine(seed, vertex.position, vertex.color,
+                               vertex.normal, vertex.uv);
     return seed;
   }
 };
