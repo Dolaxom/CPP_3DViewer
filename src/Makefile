@@ -1,7 +1,7 @@
 CXX=msbuild
 CXXFLAGS=/p:Configuration=Debug /p:Platform=x64
 
-all: tests install dvi
+all: unpack_gtest_libs unpack_glfw_libs tests install dvi
 
 .PHONY: build
 build:
@@ -40,3 +40,11 @@ dvi:
 .PHONY: dist
 dist:
 	powershell Compress-Archive $(CURDIR)\viewer\build Viewer.zip
+
+.PHONY: unpack_glfw_libs
+unpack_glfw_libs:
+	powershell Expand-Archive -Path $(CURDIR)\libraries\glmandglfwlibs.zip -DestinationPath $(CURDIR)\libraries\
+
+.PHONY: unpack_gtest_libs
+unpack_gtest_libs:
+	powershell Expand-Archive -Path $(CURDIR)\tests\packages.zip -DestinationPath $(CURDIR)\tests\
