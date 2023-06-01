@@ -4,6 +4,8 @@
 
 ![Monkey](misc/img.png)
 
+### Educational project from School 21 (sber)
+
 ## Documentation
 
 If you have [docsify](https://github.com/docsifyjs/docsify) installed then go to ``src/`` and call the ``make dvi`` target.
