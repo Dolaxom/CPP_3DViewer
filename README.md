@@ -6,4 +6,4 @@
 
 ![](materials/monkey.png)
 
-Проект выполнен разработан следуя стандартам паттерна [MVC](https://ru.wikipedia.org/wiki/Model-View-Controller) и [Google C++ Style Guide](https://google.github.io/styleguide/cppguide.html). Для создания окна используется **GLFW3**, для пользовательского интерфейса - **ImGUI**. Рендер 3D моделей происходит через **Vulkan API**. Для открытия **документации** проекта должна быть установлена утилита docsify, если этот пункт соблюдён, то воспользуйтесь командой ``make dvi`` в ``src/`` директории проекта.
+Проект выполнен следуя стандартам паттерна [MVC](https://ru.wikipedia.org/wiki/Model-View-Controller) и [Google C++ Style Guide](https://google.github.io/styleguide/cppguide.html). Для создания окна используется **GLFW3**, для пользовательского интерфейса - **ImGUI**. Рендер 3D моделей происходит через **Vulkan API**. Для открытия **документации** проекта должна быть установлена утилита docsify, если этот пункт соблюдён, то воспользуйтесь командой ``make dvi`` в ``src/`` директории проекта.
